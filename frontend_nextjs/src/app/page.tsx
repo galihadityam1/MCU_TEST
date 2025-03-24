@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Employee, Task } from "@/Types";
 import AddTask from "@/components/AddTask";
 import { deleteTask, fetchEmployee } from "@/actions/actions";
@@ -14,8 +14,8 @@ export default function Home() {
       .catch(error => console.error(error));
   }
 
-  async function deleteData(id: number) {
-    const res = await deleteTask(id)
+  const deleteData = useCallback(async (id: number) => {
+    const res = await deleteTask(id);
 
     if (res?.status !== 200) {
       return Swal.fire({
@@ -23,19 +23,21 @@ export default function Home() {
         showConfirmButton: false,
         timer: 1500,
         icon: 'warning'
-      })
+      });
     }
+
+    await fetchData();
 
     return Swal.fire({
       title: "Success!",
-      text: "Task has deleted!",
+      text: "Task has been deleted!",
       icon: "success"
-    })
-  }
+    });
+  }, []);
 
   useEffect(() => {
-    fetchData()
-  }, [deleteData]);
+    fetchData();
+  }, []);
 
   return (
     <div className="container mt-5">
