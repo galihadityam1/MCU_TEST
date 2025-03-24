@@ -14,3 +14,4 @@ Route::put('employeeupdate/{id}', [EmployeeController::class, 'update']);
 Route::post('addnew', [EmployeeController::class, 'store']);
 Route::delete('employeedelete/{id}', [EmployeeController::class, 'destroy']);
 Route::post('task', [TaskController::class, 'store']);
+Route::delete('taskdelete/{id}', [TaskController::class, 'destroy']);

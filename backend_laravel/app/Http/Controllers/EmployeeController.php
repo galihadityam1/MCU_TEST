@@ -66,10 +66,12 @@ class EmployeeController extends Controller
                 ], 404);
             }
 
+            $data = $employee;
             $employee->delete();
 
             return response()->json([
-                'message' => "Employee deleted"
+                'message' => "Employee deleted", 
+                'data' => $data
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
